@@ -77,7 +77,6 @@ clone_repo "https://github.com/XagaForge/android_vendor_firmware.git" "vendor/fi
 clone_repo "https://gitlab.com/priiii08918/proprietary_vendor_xiaomi_miuicamera-xaga.git" "vendor/xiaomi/miuicamera-xaga" "15"
 clone_repo "https://github.com/xiaomi-mediatek-devs/android_hardware_mediatek.git" "hardware/mediatek" "lineage-22.2"
 clone_repo "https://github.com/xiaomi-mediatek-devs/android_device_mediatek_sepolicy_vndr.git" "device/mediatek/sepolicy_vndr" "lineage-22.2"
-clone_repo "https://gitlab.com/kutemeikito/rastamod69-clang" "prebuilts/clang/host/linux-x86/clang-rastamod" "clang-21.0"
 
 # Resync (again)
 /opt/crave/resync.sh
