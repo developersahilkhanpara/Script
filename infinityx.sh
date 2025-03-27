@@ -70,7 +70,7 @@ git clone https://gitlab.com/priiii08918/proprietary_vendor_xiaomi_miuicamera-xa
 
 git clone https://github.com/xiaomi-mediatek-devs/android_hardware_mediatek.git hardware/mediatek || { echo "Failed to clone hardware mediatek"; exit 1; }
 
-git clone https://github.com/xiaomi-mediatek-devs/android_hardware_xiaomi.git hardware/xiaomi || { echo "Failed to clone hardware xiaomi"; exit 1; }
+# git clone https://github.com/xiaomi-mediatek-devs/android_hardware_xiaomi.git hardware/xiaomi || { echo "Failed to clone hardware xiaomi"; exit 1; }
 
 git clone https://github.com/xiaomi-mediatek-devs/android_device_mediatek_sepolicy_vndr.git device/mediatek/sepolicy_vndr || { echo "Failed to clone sepolicy_vndr"; exit 1; }
 
