@@ -1,5 +1,17 @@
 #!/bin/bash
-# crave run --no-patch -- "curl https://raw.githubusercontent.com/Zekerian/Android-Scripts/refs/heads/InfinityX/LOSP.sh | bash"
+
+# Function to clone repositories if not already present
+clone_repo() {
+  local repo_url=$1
+  local dest_dir=$2
+  local branch=$3
+  if [ -d "$dest_dir" ]; then
+    echo "Directory $dest_dir exists, removing it first..."
+    rm -rf "$dest_dir"
+  fi
+  git clone "$repo_url" -b "$branch" "$dest_dir" || { echo "Failed to clone $repo_url"; exit 1; }
+  echo "Cloned $repo_url into $dest_dir"
+}
 
 # Remove Unnecessary Files
 echo "===================================="
@@ -41,6 +53,7 @@ fi
 echo "=============================================="
 echo "       Manifest Cloned successfully"
 echo "=============================================="
+
 # Sync
 if ! /opt/crave/resync.sh || ! repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all); then
   echo "Repo sync failed. Exiting."
@@ -54,34 +67,19 @@ echo "============="
 echo "=============================================="
 echo "       Cloning Trees..........."
 echo "=============================================="
-git clone https://github.com/developersahilkhanpara/android_device_xiaomi_xaga.git -b 15 device/xiaomi/xaga || { echo "Failed to clone device tree"; exit 1; }
 
-git clone https://github.com/XagaForge/android_device_xiaomi_mt6895-common.git -b 15 device/xiaomi/mt6895-common || { echo "Failed to clone common device tree"; exit 1; }
+clone_repo "https://github.com/developersahilkhanpara/android_device_xiaomi_xaga.git" "device/xiaomi/xaga" "15"
+clone_repo "https://github.com/XagaForge/android_device_xiaomi_mt6895-common.git" "device/xiaomi/mt6895-common" "15"
+clone_repo "https://github.com/XagaForge/android_kernel_xiaomi_mt6895.git" "kernel/xiaomi/mt6895" "15"
+clone_repo "https://gitlab.com/priiii08918/android_vendor_xiaomi_xaga.git" "vendor/xiaomi/xaga" "15"
+clone_repo "https://github.com/XagaForge/android_vendor_xiaomi_mt6895-common.git" "vendor/xiaomi/mt6895-common" "15"
+clone_repo "https://github.com/XagaForge/android_vendor_firmware.git" "vendor/firmware" "15"
+clone_repo "https://gitlab.com/priiii08918/proprietary_vendor_xiaomi_miuicamera-xaga.git" "vendor/xiaomi/miuicamera-xaga" "15"
+clone_repo "https://github.com/xiaomi-mediatek-devs/android_hardware_mediatek.git" "hardware/mediatek" "15"
+clone_repo "https://github.com/xiaomi-mediatek-devs/android_device_mediatek_sepolicy_vndr.git" "device/mediatek/sepolicy_vndr" "15"
+clone_repo "https://gitlab.com/kutemeikito/rastamod69-clang" "prebuilts/clang/host/linux-x86/clang-rastamod" "15"
 
-git clone https://github.com/XagaForge/android_kernel_xiaomi_mt6895.git -b 15 kernel/xiaomi/mt6895 || { echo "Failed to clone kernel"; exit 1; }
-
-git clone https://gitlab.com/priiii08918/android_vendor_xiaomi_xaga.git -b 15 vendor/xiaomi/xaga || { echo "Failed to clone vendor miami"; exit 1; }
-
-git clone https://github.com/XagaForge/android_vendor_xiaomi_mt6895-common.git -b 15 vendor/xiaomi/mt6895-common || { echo "Failed to clone common vendor miami"; exit 1; }
-
-git clone https://github.com/XagaForge/android_vendor_firmware.git -b 15 vendor/firmware || { echo "Failed to clone vendor firmware"; exit 1; }
-
-git clone https://gitlab.com/priiii08918/proprietary_vendor_xiaomi_miuicamera-xaga.git -b 15 vendor/xiaomi/miuicamera-xaga || { echo "Failed to clone miuicamera-xaga"; exit 1; }
-
-git clone https://github.com/xiaomi-mediatek-devs/android_hardware_mediatek.git hardware/mediatek || { echo "Failed to clone hardware mediatek"; exit 1; }
-
-# git clone https://github.com/xiaomi-mediatek-devs/android_hardware_xiaomi.git hardware/xiaomi || { echo "Failed to clone hardware xiaomi"; exit 1; }
-
-git clone https://github.com/xiaomi-mediatek-devs/android_device_mediatek_sepolicy_vndr.git device/mediatek/sepolicy_vndr || { echo "Failed to clone sepolicy_vndr"; exit 1; }
-
-git clone https://gitlab.com/kutemeikito/rastamod69-clang prebuilts/clang/host/linux-x86/clang-rastamod || { echo "Failed to clone prebuilts clang-rastamod"; exit 1; }
-
-# croot && git clone https://github.com/ProjectInfinity-X/vendor_infinity-priv_keys-template vendor/infinity-priv/keys || { echo "Failed to sign"; exit 1;}
-
-# cd vendor/infinity-priv/keys && chmod +x keys.sh
-
-# ./keys.sh && cd ../../../
-
+# Resync (again)
 /opt/crave/resync.sh
 
 # Export Environment Variables
@@ -97,7 +95,6 @@ echo "======= Export Done ======"
 echo "====== Starting Envsetup ======="
 source build/envsetup.sh || { echo "Envsetup failed"; exit 1; }
 echo "====== Envsetup Done ======="
-
 
 # Build ROM
 echo "===================================="
