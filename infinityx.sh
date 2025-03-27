@@ -7,12 +7,12 @@ echo "     Removing Unnecessary Files"
 echo "===================================="
 
 dirs_to_remove=(
-  "vendor/motorola"
-  "kernel/motorola"
-  "device/motorola"
-  "device/motorola/sm6375-common"
-  "vendor/motorola/sm6375-common"
-  "hardware/motorola"
+  "vendor/xaga"
+  "kernel/xaga"
+  "device/xaga"
+  "device/xaga/mt6895-common"
+  "vendor/xaga/mt6895-common"
+  "hardware/xaga"
   "prebuilts/clang/host/linux-x86/clang-rastamod"
   "out/target/product/*/*zip"
   "out/target/product/*/*txt"
@@ -34,7 +34,7 @@ echo "===================================="
 echo "=============================================="
 echo "         Cloning Manifest..........."
 echo "=============================================="
-if ! repo init --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 15 -g default,-mips,-darwin,-notdefault; then
+if ! repo init --depth=1 --no-repo-verify --git-lfs -u https://github.com/ProjectInfinity-X/manifest -b 15-QPR2 -g default,-mips,-darwin,-notdefault; then
   echo "Repo initialization failed. Exiting."
   exit 1
 fi
@@ -54,17 +54,25 @@ echo "============="
 echo "=============================================="
 echo "       Cloning Trees..........."
 echo "=============================================="
-git clone https://github.com/Zekerian/android_device_motorola_miami -b InfinityX device/motorola/miami || { echo "Failed to clone device tree"; exit 1; }
+git clone https://github.com/developersahilkhanpara/android_device_xiaomi_xaga.git -b 15 device/xiaomi/xaga || { echo "Failed to clone device tree"; exit 1; }
 
-git clone https://github.com/Zekerian/android_device_motorola_sm6375-common -b InfinityX device/motorola/sm6375-common || { echo "Failed to clone common device tree"; exit 1; }
+git clone https://github.com/XagaForge/android_device_xiaomi_mt6895-common.git -b 15 device/xiaomi/mt6895-common || { echo "Failed to clone common device tree"; exit 1; }
 
-git clone https://github.com/Motorola-Miami/android_kernel_motorola_sm6375 -b 15.0-KSU kernel/motorola/sm6375 || { echo "Failed to clone kernel"; exit 1; }
+git clone https://github.com/XagaForge/android_kernel_xiaomi_mt6895.git -b 15 kernel/xiaomi/mt6895 || { echo "Failed to clone kernel"; exit 1; }
 
-git clone https://gitlab.com/Motorola-Miami/proprietary_vendor_motorola_miami -b 15.0-test vendor/motorola/miami || { echo "Failed to clone vendor miami"; exit 1; }
+git clone https://gitlab.com/priiii08918/android_vendor_xiaomi_xaga.git -b 15 vendor/xiaomi/xaga || { echo "Failed to clone vendor miami"; exit 1; }
 
-git clone https://github.com/Motorola-Miami/proprietary_vendor_motorola_sm6375-common -b 15.0-test vendor/motorola/sm6375-common || { echo "Failed to clone common vendor miami"; exit 1; }
+git clone https://github.com/XagaForge/android_vendor_xiaomi_mt6895-common.git -b 15 vendor/xiaomi/mt6895-common || { echo "Failed to clone common vendor miami"; exit 1; }
 
-git clone https://github.com/Motorola-Miami/android_hardware_motorola hardware/motorola || { echo "Failed to clone hardware"; exit 1; }
+git clone https://github.com/XagaForge/android_vendor_firmware.git -b 15 vendor/firmware || { echo "Failed to clone vendor firmware"; exit 1; }
+
+git clone https://gitlab.com/priiii08918/proprietary_vendor_xiaomi_miuicamera-xaga.git -b 15 vendor/xiaomi/miuicamera-xaga || { echo "Failed to clone miuicamera-xaga"; exit 1; }
+
+git clone https://github.com/xiaomi-mediatek-devs/android_hardware_mediatek.git hardware/mediatek || { echo "Failed to clone hardware mediatek"; exit 1; }
+
+git clone https://github.com/xiaomi-mediatek-devs/android_hardware_xiaomi.git hardware/xiaomi || { echo "Failed to clone hardware xiaomi"; exit 1; }
+
+git clone https://github.com/xiaomi-mediatek-devs/android_device_mediatek_sepolicy_vndr.git device/mediatek/sepolicy_vndr || { echo "Failed to clone sepolicy_vndr"; exit 1; }
 
 git clone https://gitlab.com/kutemeikito/rastamod69-clang prebuilts/clang/host/linux-x86/clang-rastamod || { echo "Failed to clone prebuilts clang-rastamod"; exit 1; }
 
@@ -78,7 +86,7 @@ git clone https://gitlab.com/kutemeikito/rastamod69-clang prebuilts/clang/host/l
 
 # Export Environment Variables
 echo "======= Exporting........ ======"
-export BUILD_USERNAME=Zeke
+export BUILD_USERNAME=Sahil
 export BUILD_HOSTNAME=crave
 export TARGET_DISABLE_EPPE=true
 export TZ=Asia/Dhaka
@@ -95,5 +103,5 @@ echo "====== Envsetup Done ======="
 echo "===================================="
 echo "        Build Infinity.."
 echo "===================================="
-lunch infinity_miami-eng
+lunch infinity_xaga-user
 mka bacon
