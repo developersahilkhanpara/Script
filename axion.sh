@@ -77,6 +77,7 @@ clone_repo "https://github.com/XagaForge/android_vendor_xiaomi_mt6895-common.git
 clone_repo "https://github.com/XagaForge/android_vendor_firmware.git" "vendor/firmware" "15"
 clone_repo "https://gitlab.com/priiii08918/proprietary_vendor_xiaomi_miuicamera-xaga.git" "vendor/xiaomi/miuicamera-xaga" "15"
 clone_repo "https://github.com/xiaomi-mediatek-devs/android_hardware_mediatek.git" "hardware/mediatek" "lineage-22.2"
+clone_repo "https://github.com/xiaomi-mt6895-devs/android_hardware_xiaomi.git" "hardware/xiaomi" "lineage-22.2"
 clone_repo "https://github.com/xiaomi-mediatek-devs/android_device_mediatek_sepolicy_vndr.git" "device/mediatek/sepolicy_vndr" "lineage-22.2"
 
 # Resync (again)
