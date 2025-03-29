@@ -101,5 +101,5 @@ echo "===================================="
 echo "        Build Infinity.."
 echo "===================================="
 gk -s
-axion xaga core
+axion xaga user core
 ax -br -j$(nproc --all)
