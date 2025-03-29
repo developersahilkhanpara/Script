@@ -69,7 +69,7 @@ echo "=============================================="
 echo "       Cloning Trees..........."
 echo "=============================================="
 
-clone_repo "https://github.com/developersahilkhanpara/android_device_xiaomi_xaga.git" "device/xiaomi/xaga" "15"
+clone_repo "https://github.com/XagaForge/android_device_xiaomi_xaga.git" "device/xiaomi/xaga" "15"
 clone_repo "https://github.com/XagaForge/android_device_xiaomi_mt6895-common.git" "device/xiaomi/mt6895-common" "15"
 clone_repo "https://github.com/XagaForge/android_kernel_xiaomi_mt6895.git" "kernel/xiaomi/mt6895" "15"
 clone_repo "https://gitlab.com/priiii08918/android_vendor_xiaomi_xaga.git" "vendor/xiaomi/xaga" "15"
