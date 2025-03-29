@@ -100,6 +100,6 @@ echo "====== Envsetup Done ======="
 echo "===================================="
 echo "        Build Infinity.."
 echo "===================================="
-gk -s
 axion xaga user core
+gk -s
 ax -br -j$(nproc --all)
